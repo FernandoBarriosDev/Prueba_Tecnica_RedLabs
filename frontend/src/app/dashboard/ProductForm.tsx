@@ -78,6 +78,8 @@ export default function ProductForm({
               className={styles.input}
               type="text"
               required
+              minLength={1}
+              maxLength={200}
               value={formData.nombre}
               onChange={(e) =>
                 setFormData({ ...formData, nombre: e.target.value })
@@ -93,6 +95,7 @@ export default function ProductForm({
               id="pf-desc"
               className={styles.textarea}
               rows={3}
+              maxLength={2000}
               value={formData.descripcion || ""}
               onChange={(e) =>
                 setFormData({ ...formData, descripcion: e.target.value })

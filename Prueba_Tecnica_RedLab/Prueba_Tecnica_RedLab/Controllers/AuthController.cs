@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Prueba_Tecnica_RedLab.Application;
 using Prueba_Tecnica_RedLab.Application.DTOs;
 using Prueba_Tecnica_RedLab.Application.Interfaces;
 using Prueba_Tecnica_RedLab.Domain.Entities;
@@ -26,6 +27,8 @@ public class AuthController : ControllerBase
         if (dto is null)
             return BadRequest(new { message = "Envía un JSON válido con usuario y contraseña (POST /api/auth/register)." });
 
+        dto.Username = InputNormalizer.NormalizeUsername(dto.Username);
+        TryValidateModel(dto);
         if (!ModelState.IsValid)
             return ValidationProblem(ModelState);
 
@@ -57,6 +60,8 @@ public class AuthController : ControllerBase
         if (dto is null)
             return BadRequest(new { message = "Envía usuario y contraseña en JSON." });
 
+        dto.Username = InputNormalizer.NormalizeUsername(dto.Username);
+        TryValidateModel(dto);
         if (!ModelState.IsValid)
             return ValidationProblem(ModelState);
 

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Prueba_Tecnica_RedLab.Application;
 using Prueba_Tecnica_RedLab.Application.DTOs;
 using Prueba_Tecnica_RedLab.Application.Interfaces;
 using Prueba_Tecnica_RedLab.Application.Services;
@@ -39,8 +40,14 @@ namespace Prueba_Tecnica_RedLab.Controllers
         //create controller
         [HttpPost]
         [Authorize]
-        public IActionResult Create(CreateProductDto dto)
+        public IActionResult Create([FromBody] CreateProductDto dto)
         {
+            dto.Nombre = InputNormalizer.NormalizeProductNombre(dto.Nombre);
+            dto.Description = InputNormalizer.NormalizeProductDescription(dto.Description);
+            TryValidateModel(dto);
+            if (!ModelState.IsValid)
+                return ValidationProblem(ModelState);
+
             var username = User.Claims.First(c => c.Type == "username").Value;
 
             var product = new Product
@@ -63,6 +70,12 @@ namespace Prueba_Tecnica_RedLab.Controllers
         [Authorize]
         public IActionResult Update(Guid id, [FromBody] CreateProductDto dto)
         {
+            dto.Nombre = InputNormalizer.NormalizeProductNombre(dto.Nombre);
+            dto.Description = InputNormalizer.NormalizeProductDescription(dto.Description);
+            TryValidateModel(dto);
+            if (!ModelState.IsValid)
+                return ValidationProblem(ModelState);
+
             var product = _service.GetById(id);
             if (product == null) return NotFound();
 

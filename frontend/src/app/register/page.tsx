@@ -54,6 +54,8 @@ export default function Register() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
+              maxLength={100}
+              autoComplete="username"
             />
           </div>
 
@@ -65,11 +67,15 @@ export default function Register() {
               id="reg-password"
               type="password"
               className={styles.inputField}
-              placeholder="••••••••"
+              placeholder="Mínimo 7 caracteres"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              minLength={7}
+              maxLength={128}
+              autoComplete="new-password"
             />
+            <p className={styles.hint}>Debe tener más de 6 caracteres (mínimo 7).</p>
           </div>
 
           <button type="submit" className={styles.btn} disabled={loading}>
