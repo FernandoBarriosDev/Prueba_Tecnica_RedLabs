@@ -1,31 +1,33 @@
-# Prueba técnica — RedLabs
+# Prueba técnica RedLab
 
-API REST en **.NET 8** (JWT, SQL Server, Swagger) y **frontend Next.js** (login, registro, dashboard de productos con PDF).
+API .NET 8 + SQL Server + JWT y frontend Next.js 15 (login, registro, CRUD productos, PDF).
 
 ## Requisitos
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/download)
-- [Node.js 20+](https://nodejs.org/) (npm)
-- **SQL Server** local o en Docker (la cadena de conexión por defecto usa `localhost,1433` y usuario `sa`)
+Docker (para la base), .NET 8 SDK y Node.js 20+.
 
-## 1. Base de datos
+## Cómo correrlo
 
-1. Ajusta la cadena en `Prueba_Tecnica_RedLab/Prueba_Tecnica_RedLab/appsettings.json` (`ConnectionStrings:DefaultConnection`) si tu instancia no usa `sa` / ese puerto o contraseña.
-2. Al levantar la API, las migraciones de **EF Core** se aplican solas (`Program.cs`).
+Todo desde la **carpeta raíz del repo** (donde está `docker-compose.yml`).
 
-## 2. Backend (API)
+1. Base de datos
+
+```bash
+docker compose up -d
+```
+
+Espera unos segundos antes del siguiente paso (SQL tarda en arrancar la primera vez).
+
+2. Backend — en una terminal
 
 ```bash
 cd Prueba_Tecnica_RedLab/Prueba_Tecnica_RedLab
 dotnet run --launch-profile http
 ```
 
-- API HTTP: **http://localhost:5087**
-- Swagger: **http://localhost:5087/swagger**
+API: http://localhost:5087 — Swagger: http://localhost:5087/swagger
 
-Mantén este proceso en marcha antes de abrir el frontend.
-
-## 3. Frontend
+3. Frontend — en otra terminal
 
 ```bash
 cd frontend
@@ -33,23 +35,10 @@ npm install
 npm run dev
 ```
 
-- App: **http://localhost:3000** (redirige a `/login`).
+App: http://localhost:3000
 
-El frontend llama al API por un **proxy interno** (`/api-proxy` → `http://localhost:5087`) para evitar problemas de CORS en local. Si el API corre en otro host o puerto, crea `frontend/.env.local` (ver `frontend/.env.example`).
+Registra un usuario, inicia sesión y usa el dashboard. La contraseña de SQL en Docker y en `appsettings.json` es la misma (`sa` / ver `docker-compose.yml`).
 
-## 4. Flujo sugerido para revisar
+## Si no usas Docker
 
-1. Registrar usuario en `/register` o usar Swagger `POST /api/auth/register`.
-2. Iniciar sesión en `/login`.
-3. En el dashboard: listar, crear/editar/eliminar productos, filtrar, ordenar, paginar y descargar PDF.
-
-## Estructura
-
-| Carpeta | Contenido |
-|--------|------------|
-| `Prueba_Tecnica_RedLab/` | Solución .NET (Domain, Application, Infrastructure, API) |
-| `frontend/` | Next.js 15 (App Router) |
-
----
-
-*Prueba técnica enviada para RedLabs.*
+Ten SQL Server en `localhost:1433` y ajusta `ConnectionStrings:DefaultConnection` en `Prueba_Tecnica_RedLab/Prueba_Tecnica_RedLab/appsettings.json`. Si el API no va en el puerto 5087, mira `frontend/.env.example`.

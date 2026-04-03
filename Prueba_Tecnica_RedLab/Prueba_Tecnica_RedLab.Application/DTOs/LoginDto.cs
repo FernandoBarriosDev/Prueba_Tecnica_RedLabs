@@ -1,14 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Prueba_Tecnica_RedLab.Application.DTOs
 {
     public class LoginDto
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
+        [Required]
+        [MinLength(1)]
+        public required string Username { get; set; }
+
+        [Required]
+        [MinLength(1)]
+        public required string Password { get; set; }
     }
 }
