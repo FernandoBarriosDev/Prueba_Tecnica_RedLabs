@@ -1,0 +1,9 @@
+﻿<Solution>
+  <Folder Name="/Elementos de la solución/">
+    <File Path="docker-compose.yml" />
+  </Folder>
+  <Project Path="Prueba_Tecnica_RedLab.Application/Prueba_Tecnica_RedLab.Application.csproj" />
+  <Project Path="Prueba_Tecnica_RedLab.Domain/Prueba_Tecnica_RedLab.Domain.csproj" />
+  <Project Path="Prueba_Tecnica_RedLab.Infrastructure/Prueba_Tecnica_RedLab.Infrastructure.csproj" />
+  <Project Path="Prueba_Tecnica_RedLab/Prueba_Tecnica_RedLab.csproj" />
+</Solution>
