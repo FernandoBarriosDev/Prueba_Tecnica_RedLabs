@@ -1,0 +1,166 @@
+.authWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow: auto;
+}
+
+/* El gradiente vive en el cuadro (.authCard), no en la página */
+.authCard {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  padding: 3rem 2.5rem;
+  border-radius: 20px;
+  box-sizing: border-box;
+  z-index: 10;
+  overflow: hidden;
+  background: linear-gradient(135deg, #09090b 0%, #3f0f13 50%, #7f1d1d 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+}
+
+.authCard::before {
+  content: '';
+  position: absolute;
+  width: 70vw;
+  max-width: 420px;
+  height: 70vw;
+  max-height: 420px;
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.18) 0%, rgba(0, 0, 0, 0) 65%);
+  top: -35%;
+  left: -25%;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.authCard > * {
+  position: relative;
+  z-index: 1;
+}
+
+.authTitle {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  color: #ffffff;
+  letter-spacing: -0.025em;
+}
+
+.authSubtitle {
+  color: #fca5a5;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 0.95rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #fecaca;
+}
+
+.inputField {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  outline: none;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.inputField::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.inputField:focus {
+  border-color: #ef4444;
+  background-color: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+}
+
+.btn {
+  background: linear-gradient(to right, #ef4444, #dc2626);
+  color: white;
+  border: none;
+  padding: 0.85rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 1rem;
+  font-size: 1rem;
+  box-shadow: 0 10px 15px -3px rgba(220, 38, 38, 0.3), 0 4px 6px -4px rgba(220, 38, 38, 0.3);
+  transition: all 0.3s ease;
+  letter-spacing: 0.025em;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 20px -3px rgba(220, 38, 38, 0.4), 0 6px 8px -4px rgba(220, 38, 38, 0.4);
+}
+
+.btn:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.4);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.authFooter {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+.authLink {
+  color: #f87171;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.authLink:hover {
+  color: #fca5a5;
+}
+
+.errorBox {
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  display: flex;
+  align-items: center;
+}

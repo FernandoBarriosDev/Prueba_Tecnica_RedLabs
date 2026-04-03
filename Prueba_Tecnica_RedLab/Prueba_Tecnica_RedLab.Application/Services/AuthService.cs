@@ -10,6 +10,8 @@ namespace Prueba_Tecnica_RedLab.Application.Services
         private readonly IUserRepository _users;
         private readonly IPasswordHasher _hasher;
 
+
+
         //constructor
         public AuthService(IUserRepository users, IPasswordHasher hasher)
         {
@@ -33,6 +35,9 @@ namespace Prueba_Tecnica_RedLab.Application.Services
             return user;
         }
         //login metodo
+        
+        
+        
         public User? Login(LoginDto dto)
         {
             var user = _users.GetByUsername(dto.Username);

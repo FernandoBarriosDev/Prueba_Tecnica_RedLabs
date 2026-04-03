@@ -13,7 +13,6 @@ public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
     private readonly IConfiguration _config;
-
     public AuthController(IAuthService authService, IConfiguration config)
     {
         _authService = authService;
@@ -42,7 +41,7 @@ public class AuthController : ControllerBase
     }
 
     //token para autenticación
-    private string BuildToken(User user)
+private string BuildToken(User user)
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -60,7 +59,6 @@ public class AuthController : ControllerBase
             expires: DateTime.UtcNow.AddHours(1),
             signingCredentials: creds
         );
-
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }

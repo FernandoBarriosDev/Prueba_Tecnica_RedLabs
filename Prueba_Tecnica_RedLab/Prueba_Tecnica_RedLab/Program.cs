@@ -29,6 +29,38 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<PdfService>();
 
+// CORS: el frontend (Next.js) es otro origen; en dev acepta cualquier puerto en localhost
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        if (builder.Environment.IsDevelopment())
+        {
+            policy.SetIsOriginAllowed(static origin =>
+            {
+                if (string.IsNullOrEmpty(origin)) return false;
+                try
+                {
+                    var uri = new Uri(origin);
+                    return uri.Host is "localhost" or "127.0.0.1";
+                }
+                catch
+                {
+                    return false;
+                }
+            });
+        }
+        else
+        {
+            policy.WithOrigins(
+                "http://localhost:3000",
+                "http://127.0.0.1:3000");
+        }
+
+        policy.AllowAnyHeader().AllowAnyMethod();
+    });
+});
+
 //swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -99,7 +131,11 @@ if (app.Environment.IsDevelopment())
 }
 
 //middlewares
-app.UseHttpsRedirection();
+// En dev, redirigir HTTP→HTTPS rompe fetch desde el front (certificado / CORS al seguir el redirect)
+if (!app.Environment.IsDevelopment())
+    app.UseHttpsRedirection();
+
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

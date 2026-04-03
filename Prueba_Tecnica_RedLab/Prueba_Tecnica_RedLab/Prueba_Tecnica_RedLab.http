@@ -3,4 +3,3 @@
 GET {{Prueba_Tecnica_RedLab_HostAddress}}/weatherforecast/
 Accept: application/json
 
-###
